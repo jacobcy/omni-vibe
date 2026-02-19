@@ -1,0 +1,28 @@
+name: omni-orchestrator
+
+services:
+  omni-orchestrator:
+    build: .
+    container_name: omni-orchestrator
+    ports:
+      - "18765:18765"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - omni-data:/app/data
+    environment:
+      - GITHUB_LITELLM_KEY=${GITHUB_LITELLM_KEY}
+      - OMNI_HOST=0.0.0.0
+      - OMNI_PORT=18765
+      - LITELLM_URL=http://litellm-vibe-router:4000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; s=socket.socket(); s.connect(('localhost', 18765)); s.close()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - litellm-vibe-router
+
+volumes:
+  omni-data:
+    driver: local
