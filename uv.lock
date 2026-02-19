@@ -1137,6 +1137,7 @@ name = "omni-vibe"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "httpx" },
     { name = "litellm" },
     { name = "mcp" },
     { name = "pyyaml" },
@@ -1152,6 +1153,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "httpx", specifier = ">=0.27.0" },
     { name = "litellm", specifier = ">=1.50.0" },
     { name = "mcp", specifier = ">=0.10.0" },
     { name = "pylint", marker = "extra == 'dev'", specifier = ">=3.1.0" },
