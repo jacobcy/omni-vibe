@@ -198,3 +198,41 @@ class Orchestrator:
 
         # 保持狀態管理器連接（用於持久化）
         # 實際實現中可能需要顯式關閉
+
+    async def process_mcp_message(self, message: str) -> str:
+        """
+        處理 MCP 消息
+
+        Args:
+            message: MCP 協議消息 (JSON 字符串)
+
+        Returns:
+            str: MCP 響應消息 (JSON 字符串)
+        """
+        import json
+        try:
+            data = json.loads(message)
+        except json.JSONDecodeError as e:
+            return json.dumps({"error": f"Invalid JSON: {e}"})
+
+        method = data.get("method")
+
+        if method == "ping":
+            return json.dumps({"result": "pong"})
+
+        elif method == "create_task":
+            description = data.get("params", {}).get("description", "")
+            if not description:
+                return json.dumps({"error": "Missing description"})
+            result = await self.process_task(description)
+            return json.dumps({"result": result})
+
+        elif method == "get_task_status":
+            task_id = data.get("params", {}).get("task_id", "")
+            if not task_id:
+                return json.dumps({"error": "Missing task_id"})
+            result = self.state_manager.get_task(task_id)
+            return json.dumps({"result": result or {"error": "Task not found"}})
+
+        else:
+            return json.dumps({"error": f"Unknown method: {method}"})
