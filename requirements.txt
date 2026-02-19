@@ -1,0 +1,11 @@
+# Core dependencies
+litellm>=1.50.0
+pyyaml>=6.0.1
+mcp>=0.10.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+
+# Code quality
+pylint>=3.1.0

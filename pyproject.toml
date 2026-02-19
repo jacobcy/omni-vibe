@@ -1,0 +1,24 @@
+[project]
+name = "omni-vibe"
+version = "0.1.0"
+description = "ARES - Autonomous Reasoning & Execution System"
+requires-python = ">=3.11"
+dependencies = [
+    "litellm>=1.50.0",
+    "pyyaml>=6.0.1",
+    "mcp>=0.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pylint>=3.1.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
