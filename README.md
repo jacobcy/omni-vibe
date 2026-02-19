@@ -106,6 +106,32 @@ uv run pytest tests/integration/
 uv run pytest --cov=src --cov-report=html
 ```
 
+### Docker 部署到 Mac mini
+
+```bash
+# 切换 Docker Context（指向 Mac mini）
+docker context use macmini-frps
+
+# 构建并启动
+docker compose up -d
+
+# 查看日志
+docker compose logs -f omni-orchestrator
+
+# 停康检查
+docker compose ps
+```
+
+### Tailscale 远程访问
+
+```bash
+# 确保 Tailscale 服务在 Mac mini 上运行
+ssh chenyi@bghunt.cn "tailscale serve --background"
+
+# 客户端连接地址
+ws://macmini.tailed323a.ts.net:18765
+```
+
 ## Tech Stack
 
 | Component | Technology |
