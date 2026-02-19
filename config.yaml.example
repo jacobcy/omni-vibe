@@ -1,0 +1,102 @@
+# Omni-Orchestrator 配置文件模板
+# 复制此文件为 config.yaml 并填入实际值
+
+# ==========================================
+# API Keys
+# ==========================================
+# GitHub Key (用于 LiteLLM 故障时的备用直连)
+github_key: ${GITHUB_LITELLM_KEY}
+
+# 主 API Keys (通过 LiteLLM 路由使用)
+# 这些会被传递给 LiteLLM
+litellm_api_key: ${LITELLM_API_KEY}
+openai_api_key: ${OPENAI_API_KEY}
+anthropic_api_key: ${ANTHROPIC_API_KEY}
+
+# ==========================================
+# LiteLLM Configuration
+# ==========================================
+lite_llm_url: "http://localhost:4000"
+
+# ==========================================
+# MCP Server Configuration
+# ==========================================
+mcp_server_url: "ws://127.0.0.1:18789"
+
+# MCP Servers 配置
+mcp_servers:
+  openclaw:
+    url: "ws://127.0.0.1:18789"
+    name: "OpenClaw"
+    enabled: true
+
+  claude_code:
+    url: "stdio"
+    name: "Claude Code"
+    enabled: true
+
+# ==========================================
+# Fault Handler Configuration
+# ==========================================
+fault_handler:
+  # LiteLLM 超时阈值（秒）
+  lite_llm_timeout: 1.0
+
+  # 连续失败次数阈值（触发降级模式）
+  consecutive_failures_threshold: 2
+
+  # 云端失败次数阈值（触发脑干模式）
+  cloud_failure_threshold: 3
+
+  # 健康检查间隔（秒）
+  health_check_interval: 30
+
+  # 云端 API 超时阈值（秒）
+  cloud_check_timeout: 10
+
+# ==========================================
+# Router Configuration
+# ==========================================
+router:
+  # 任务复杂度阈值（< 50 使用轻量级模型）
+  complexity_threshold: 50
+
+  # 执行器优先级
+  executor_priority:
+    - claude_code      # 编程任务
+    - openclaw         # 通用任务
+    - moltworker       # 24/7 任务（未来）
+
+# ==========================================
+# State Manager Configuration
+# ==========================================
+state_manager:
+  # SQLite 数据库路径
+  db_path: "state.db"
+
+  # 任务保留时间（天）
+  task_retention_days: 30
+
+# ==========================================
+# Logging Configuration
+# ==========================================
+logging:
+  # 日志级别: DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+
+  # 日志格式
+  format: "json"  # json 或 text
+
+  # 日志文件路径（留空则只输出到控制台）
+  file: ""
+
+# ==========================================
+# LiteLLM Model List (可选)
+# ==========================================
+# 如果需要自定义 LiteLLM 模型列表，取消下面的注释
+# model_list:
+#   - model_name: chat-auto
+#     litellm_params:
+#       model: "openai/gpt-5"
+#       api_base: http://localhost:3000/v1
+#       api_key: ${LITELLM_API_KEY}
