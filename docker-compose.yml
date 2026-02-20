@@ -20,8 +20,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    depends_on:
-      - litellm-vibe-router
+    # Note: litellm-vibe-router runs as a separate container on the same network
+    # depends_on:
+    #   - litellm-vibe-router
 
 volumes:
   omni-data:
