@@ -11,7 +11,6 @@ import os
 import logging
 
 from websockets.server import serve
-from src.config import Config
 from src.orchestrator import Orchestrator
 
 logging.basicConfig(level=logging.INFO)
@@ -57,8 +56,7 @@ class MCPServer:
 
 async def main():
     """主入口"""
-    config = Config()
-    orchestrator = Orchestrator(config)
+    orchestrator = Orchestrator()
 
     server = MCPServer(orchestrator)
     await server.start()
