@@ -1,16 +1,30 @@
+# Python
 __pycache__
 *.pyc
 *.pyo
 .env
+
+# Database
 state.db
 *.db
+
+# Git
 .git
 .gitignore
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Virtual environment
 .venv
+
+# Testing
 .pytest_cache
 .coverage
 htmlcov
+
+# Project specific
 tests/
 docs/
 *.md

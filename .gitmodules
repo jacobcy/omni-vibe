@@ -1,0 +1,3 @@
+[submodule "vendor/litellm-vibe-router"]
+	path = vendor/litellm-vibe-router
+	url = https://github.com/jacobcy/litellm-vibe-router.git
