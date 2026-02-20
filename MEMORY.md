@@ -77,6 +77,33 @@
 - pylint: 代碼質量檢查
 - pydantic: 數據驗證
 - asyncio: 異步執行
+- websockets: WebSocket 服務器
+
+## Deployment Status
+
+| Component | Status | Last Updated |
+|-----------|--------|--------------|
+| Docker Context | `macmini-frps` | 2026-02-20 |
+| Container | `omni-orchestrator` | 2026-02-20 |
+| Port | `18765` (MCP WebSocket) | 2026-02-20 |
+| Health | ✅ healthy | 2026-02-20 |
+
+## Session Summary (2026-02-20)
+
+### Completed Tasks
+1. **MCP WebSocket Server** - `src/main.py` 实现 MCP Server
+2. **process_mcp_message** - Orchestrator 添加 MCP 消息处理
+3. **Docker 部署** - 成功部署到 Mac mini
+4. **文档更新** - TASK.md, MEMORY.md, WORKFLOW.md
+
+### Key Commits
+- `82b6ea0` docs: update project documentation after deployment
+- `825742d` fix: pass config_path string to Orchestrator
+- `38290c7` fix: use real Config and Orchestrator imports in main.py
+- `87cf54a` fix: remove depends_on for external litellm service
+
+### Tests
+- 36 tests passing (25 unit + 4 integration + 7 orchestrator)
 
 ---
 
