@@ -9,16 +9,10 @@ Omni-Orchestrator MCP WebSocket Server
 import asyncio
 import os
 import logging
-from unittest.mock import MagicMock
 
-# Mock imports for now - will be implemented properly later
-Config = MagicMock
-Orchestrator = MagicMock
-
-try:
-    from websockets.server import serve
-except ImportError:
-    serve = None
+from websockets.server import serve
+from src.config import Config
+from src.orchestrator import Orchestrator
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -55,9 +49,6 @@ class MCPServer:
     async def start(self):
         """启动服务"""
         logger.info(f"启动 MCP Server: {self.host}:{self.port}")
-        if serve is None:
-            logger.warning("websockets not available, skipping server start")
-            return
 
         async with serve(self.handle_client, self.host, self.port) as server:
             logger.info(f"服务已启动，等待连接...")
